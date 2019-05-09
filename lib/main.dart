@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import './about_us.dart';
+import './pages/home.dart';
 
 void main() {
   runApp(SIHApp());
@@ -14,13 +14,7 @@ class SIHApp extends StatelessWidget {
         primarySwatch: Colors.lightGreen,
         fontFamily: 'Raleway',
       ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text("SIH App - Segnes Efficiamini"),
-          ),
-          body: Container(
-            child: AboutUs(),
-          )),
+      home: HomePage()
     );
   }
 }
