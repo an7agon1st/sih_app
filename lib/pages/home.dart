@@ -7,39 +7,64 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff2fde4),
       drawer: Drawer(
-        child: Column(
-          children: <Widget>[
-            AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('SIH App'),
-            ),
-            ListTile(
-              title: Text('Bluetooth Menu'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return MyApp();
-                }));
-              },
-            ),
-            ListTile(
-              title: Text('About Us'),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return AboutUsPage();
-                }));
-              },
-            )
-          ],
+        child: Container(
+          color: Color(0XffF1F8E9),
+          child: Column(
+            children: <Widget>[
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  'SIH App',
+                  style: TextStyle(
+                    color: Color(0xff1B5E20),
+                  ),
+                ),
+              ),
+              Container(color: Color(0xffc6f68d),
+                child: ListTile(
+                  title: Text('Bluetooth Menu'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return MyApp();
+                    }));
+                  },
+                ),
+              ),
+              Container(
+                color: Color(0xffdefabb),
+                child: ListTile(
+                  title: Text('About Us'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return AboutUsPage();
+                    }));
+                  },
+                ),
+              )
+            ],
+          ),
         ),
       ),
       appBar: AppBar(
-        title: Text('SIH - Segnes Efficiamini'),
+        title: Text(
+          'SIH - Segnes Efficiamini',
+          style: TextStyle(
+            color: Color(0xff1B5E20),
+          ),
+        ),
       ),
       body: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
+              color: Color(0xffaaf255),
+              textColor: Color(0xff1B5E20),
               child: Text('Bluetooth Menu'),
               onPressed: () {
                 return Navigator.push(context,
@@ -49,6 +74,8 @@ class HomePage extends StatelessWidget {
               },
             ),
             RaisedButton(
+              color: Color(0xffc6f68d),
+              textColor: Color(0xff1B5E20),
               child: Text('About Us'),
               onPressed: () {
                 return Navigator.push(context,
