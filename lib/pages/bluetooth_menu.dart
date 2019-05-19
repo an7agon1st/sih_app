@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
 
+import './about-us.dart';
+import './number_display.dart';
+
 //void main() => runApp(new MyApp());
 
 ///
@@ -89,75 +92,116 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Bluetooth Menu'),
-        ),
-        body: Container(
-          child: ListView(
+      drawer: Drawer(
+        child: Container(
+          color: Color(0XffF1F8E9),
+          child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      'Device:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    DropdownButton(
-                      items: _getDeviceItems(),
-                      onChanged: (value) => setState(() => _device = value),
-                      value: _device,
-                    ),
-                    RaisedButton(
-                      onPressed:
-                          _pressed ? null : _connected ? _disconnect : _connect,
-                      child: Text(_connected ? 'Disconnect' : 'Connect'),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 0.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: new TextField(
-                        controller: _message,
-                        autocorrect: false,
-                        keyboardType: TextInputType.text,
-                        decoration: new InputDecoration(
-                          border: InputBorder.none,
-                          labelText: 'Message:',
-                        ),
-                      ),
-                    ),
-                    RaisedButton(
-                      onPressed: _connected ? _writeTest : null,
-                      child: Text('Send'),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10.0, right: 10.0),
-                child: TextField(
-                  controller: _text,
-                  maxLines: null,
-                  enabled: false,
-                  decoration: new InputDecoration(
-                    border: InputBorder.none,
-                    labelText: 'Message Receieved:',
+              AppBar(
+                automaticallyImplyLeading: false,
+                title: Text(
+                  'SIH App',
+                  style: TextStyle(
+                    color: Color(0xff1B5E20),
                   ),
                 ),
               ),
+              Container(
+                color: Color(0xffdefabb),
+                child: ListTile(
+                  title: Text('Number Page'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return NumberPage();
+                    }));
+                  },
+                ),
+              ),
+              Container(
+                color: Color(0xffdefabb),
+                child: ListTile(
+                  title: Text('About Us'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return AboutUsPage();
+                    }));
+                  },
+                ),
+              )
             ],
           ),
         ),
-      )
-;
+      ),
+      appBar: AppBar(
+        title: Text('Bluetooth Menu'),
+      ),
+      body: Container(
+        child: ListView(
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    'Device:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  DropdownButton(
+                    items: _getDeviceItems(),
+                    onChanged: (value) => setState(() => _device = value),
+                    value: _device,
+                  ),
+                  RaisedButton(
+                    onPressed:
+                        _pressed ? null : _connected ? _disconnect : _connect,
+                    child: Text(_connected ? 'Disconnect' : 'Connect'),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10.0, 6.0, 10.0, 0.0),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: new TextField(
+                      controller: _message,
+                      autocorrect: false,
+                      keyboardType: TextInputType.text,
+                      decoration: new InputDecoration(
+                        border: InputBorder.none,
+                        labelText: 'Message:',
+                      ),
+                    ),
+                  ),
+                  RaisedButton(
+                    onPressed: _connected ? _writeTest : null,
+                    child: Text('Send'),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+              child: TextField(
+                controller: _text,
+                maxLines: null,
+                enabled: false,
+                decoration: new InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Message Receieved:',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   ///

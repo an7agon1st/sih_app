@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './about-us.dart';
 import './bluetooth_menu.dart';
+import './number_display.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -20,6 +21,18 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(
                     color: Color(0xff1B5E20),
                   ),
+                ),
+              ),
+              Container(
+                color: Color(0xffdefabb),
+                child: ListTile(
+                  title: Text('Number Page'),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return NumberPage();
+                    }));
+                  },
                 ),
               ),
               Container(color: Color(0xffc6f68d),
