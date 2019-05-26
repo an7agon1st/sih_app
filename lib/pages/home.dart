@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import './about-us.dart';
 import './bluetooth_menu.dart';
 import './number_display.dart';
+import './how_to.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,10 +17,22 @@ class HomePage extends StatelessWidget {
             children: <Widget>[
               AppBar(
                 automaticallyImplyLeading: false,
-                title: Text(
-                  'SIH App',
-                  style: TextStyle(
-                    color: Color(0xff1B5E20),
+                title: InkWell(
+                  onDoubleTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HowTo();
+                        },
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'SIH App',
+                    style: TextStyle(
+                      color: Color(0xff1B5E20),
+                    ),
                   ),
                 ),
               ),
@@ -35,7 +48,8 @@ class HomePage extends StatelessWidget {
                   },
                 ),
               ),
-              Container(color: Color(0xffc6f68d),
+              Container(
+                color: Color(0xffc6f68d),
                 child: ListTile(
                   title: Text('Bluetooth Menu'),
                   onTap: () {
@@ -63,10 +77,22 @@ class HomePage extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: Text(
-          'SIH - Segnes Efficiamini',
-          style: TextStyle(
-            color: Color(0xff1B5E20),
+        title: InkWell(
+          onDoubleTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return HowTo();
+                },
+              ),
+            );
+          },
+          child: Text(
+            'SIH - Segnes Efficiamini',
+            style: TextStyle(
+              color: Color(0xff1B5E20),
+            ),
           ),
         ),
       ),
@@ -83,6 +109,17 @@ class HomePage extends StatelessWidget {
                 return Navigator.push(context,
                     MaterialPageRoute(builder: (BuildContext context) {
                   return MyApp();
+                }));
+              },
+            ),
+            RaisedButton(
+              color: Color(0xffaaf255),
+              textColor: Color(0xff1B5E20),
+              child: Text('Number page'),
+              onPressed: () {
+                return Navigator.push(context,
+                    MaterialPageRoute(builder: (BuildContext context) {
+                  return NumberPage();
                 }));
               },
             ),
