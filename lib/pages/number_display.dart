@@ -17,6 +17,10 @@ class NumberPage extends StatefulWidget {
 class _NumberPage extends State<NumberPage> {
   FlutterBluetoothSerial bluetooth = FlutterBluetoothSerial.instance;
 
+  String _phoneNumberRecieved = '';
+  int readData = 1;
+  static const threeSecond = Duration(seconds: 3);
+  String _recievedData = _text.value.text.toString();
   static final TextEditingController _text = new TextEditingController();
 
   @override
@@ -27,15 +31,45 @@ class _NumberPage extends State<NumberPage> {
 
   Future<void> initPlatformState() async {
     bluetooth.onRead().listen((msg) {
-      setState(() {
-        print('Read: $msg');
-        _text.text += msg;
-      });
+      if (readData == 1) {
+        setState(
+          () {
+            print('Read: $msg');
+            _text.text = msg;
+            _recievedData = msg;
+            //checks if Message recieved is a number followed by D
+            // if (/*_recievedData[0] == 'D' &&*/ _recievedData.length == 1) {
+            _phoneNumberRecieved += _recievedData[0];
+
+            _text.clear();
+            readData = 0;
+            if (msg != '') {
+              Future.delayed(threeSecond, () {
+                readData = 1;
+              });
+            }
+            //  }
+            if (_recievedData != '') {
+              if (_recievedData[0] == 'C') {
+                _launchCall();
+                _phoneNumberRecieved = '';
+              }
+              if (_recievedData[0] == 'B') {
+                _phoneNumberRecieved = _phoneNumberRecieved.substring(
+                    0, _phoneNumberRecieved.length - 2);
+              }
+            }
+            msg = '';
+            _recievedData = '';
+            //_text.text += msg;
+          },
+        );
+      }
     });
   }
 
   _launchCall() async {
-    String url = 'tel:8447356870';
+    String url = 'tel:' + _phoneNumberRecieved;
     if (await URLCaller.canLaunch(url)) {
       await URLCaller.launch(url);
     } else {
@@ -44,12 +78,18 @@ class _NumberPage extends State<NumberPage> {
   }
 
   void _writeTest() {
-    bluetooth.isConnected.then((isConnected) {
-      if (isConnected) {
-        _text.clear();
-        bluetooth.write("9");
-      }
-    });
+    bluetooth.isConnected.then(
+      (isConnected) {
+        if (isConnected) {
+          _text.clear();
+          bluetooth.write("9");
+        }
+      },
+    );
+  }
+
+  void clearNumbers() {
+    _phoneNumberRecieved = '';
   }
 
   @override
@@ -109,9 +149,12 @@ class _NumberPage extends State<NumberPage> {
       body: Center(
         child: Column(
           children: [
-            Text(
-              _text.value.text.toString(),
-              style: TextStyle(fontSize: 36.0),
+            Center(
+              child: Text(
+                "Numbers recieved: \n" +
+                    _phoneNumberRecieved, //_text.value.text.toString(),
+                style: TextStyle(fontSize: 36.0),
+              ),
             ),
             TextField(
               controller: _text,
@@ -122,13 +165,13 @@ class _NumberPage extends State<NumberPage> {
                 labelText: 'Text Recieved',
               ),
             ),
+            // OutlineButton(
+            //   child: Text('Recieve'),
+            //   onPressed: _writeTest,
+            // ),
             OutlineButton(
-              child: Text('Recieve'),
-              onPressed: _writeTest,
-            ),
-            OutlineButton(
-              child: Icon(Icons.call),
-              onPressed: _launchCall,
+              child: Icon(Icons.clear),
+              onPressed: clearNumbers,
             ),
           ],
         ),
