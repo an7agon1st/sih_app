@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/5cf611943d5c5d0015300657/5cf611943d5c5d0015300656/status_badge.svg)](https://codemagic.io/apps/5cf611943d5c5d0015300657/5cf611943d5c5d0015300656/latest_build)
+
 # sih_app
 
 A new Flutter project.
